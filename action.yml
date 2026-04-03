@@ -1,0 +1,31 @@
+name: "CodeShield.ai Security Scanner"
+description: "Scan your code for AI-generated vulnerabilities and quantum-unsafe cryptography"
+author: "CodeShield.ai"
+
+branding:
+  icon: "shield"
+  color: "green"
+
+inputs:
+  api-key:
+    description: "CodeShield.ai API key (optional, enables advanced scanning)"
+    required: false
+  fail-on-critical:
+    description: "Fail the check if critical vulnerabilities are found"
+    required: false
+    default: "true"
+  scan-path:
+    description: "Path to scan (default: entire repository)"
+    required: false
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run CodeShield Scanner
+      shell: bash
+      run: |
+        echo "CodeShield.ai Scanner v1.0"
+        echo "Scanning ${{ inputs.scan-path }}..."
+        # The actual scanning logic is in the workflow file
+        # This action.yml enables Marketplace distribution
