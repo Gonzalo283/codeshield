@@ -33,22 +33,42 @@ export async function POST(request: NextRequest) {
       const [, owner, repo] = match;
       const repoName = repo.replace(/\.git$/, "");
 
-      // Fetch public repo tree (no auth token needed for public repos)
-      const treeRes = await fetch(
-        `https://api.github.com/repos/${owner}/${repoName}/git/trees/HEAD?recursive=1`,
-        {
-          headers: {
-            Accept: "application/vnd.github.v3+json",
-            "User-Agent": "CodeShield-Scanner",
-          },
+      // GitHub API headers — use token if available for higher rate limits
+      const ghHeaders: Record<string, string> = {
+        Accept: "application/vnd.github.v3+json",
+        "User-Agent": "CodeShield-Scanner",
+      };
+      if (process.env.GITHUB_CLIENT_SECRET) {
+        // Use client ID/secret for 5000 req/hr instead of 60
+        ghHeaders.Authorization = `Basic ${Buffer.from(
+          `${process.env.GITHUB_CLIENT_ID}:${process.env.GITHUB_CLIENT_SECRET}`
+        ).toString("base64")}`;
+      }
+
+      // First get the default branch
+      const repoRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repoName}`,
+        { headers: ghHeaders }
+      );
+
+      if (!repoRes.ok) {
+        if (repoRes.status === 404) {
+          return Response.json({ error: "Repository not found or is private. Only public repos can be scanned without login." }, { status: 404 });
         }
+        return Response.json({ error: "Failed to access repository. GitHub API rate limit may be exceeded." }, { status: repoRes.status });
+      }
+
+      const repoData = await repoRes.json();
+      const defaultBranch = repoData.default_branch || "main";
+
+      // Fetch the tree
+      const treeRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repoName}/git/trees/${defaultBranch}?recursive=1`,
+        { headers: ghHeaders }
       );
 
       if (!treeRes.ok) {
-        if (treeRes.status === 404) {
-          return Response.json({ error: "Repository not found or is private. Only public repos can be scanned without login." }, { status: 404 });
-        }
-        return Response.json({ error: "Failed to access repository" }, { status: treeRes.status });
+        return Response.json({ error: "Failed to access repository tree" }, { status: treeRes.status });
       }
 
       const treeData = await treeRes.json();
@@ -78,13 +98,8 @@ export async function POST(request: NextRequest) {
           batch.map(async (item: { path: string }) => {
             try {
               const res = await fetch(
-                `https://api.github.com/repos/${owner}/${repoName}/contents/${item.path}`,
-                {
-                  headers: {
-                    Accept: "application/vnd.github.v3+json",
-                    "User-Agent": "CodeShield-Scanner",
-                  },
-                }
+                `https://api.github.com/repos/${owner}/${repoName}/contents/${item.path}?ref=${defaultBranch}`,
+                { headers: ghHeaders }
               );
               if (!res.ok) return null;
               const data = await res.json();
