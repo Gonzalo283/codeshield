@@ -1,0 +1,25 @@
+{
+  "name": "codeshield",
+  "version": "1.0.0",
+  "description": "Scan your code for AI-generated vulnerabilities and quantum-unsafe cryptography",
+  "bin": {
+    "codeshield": "./index.js"
+  },
+  "keywords": [
+    "security",
+    "vulnerability",
+    "scanner",
+    "ai",
+    "post-quantum",
+    "cryptography",
+    "owasp",
+    "sast"
+  ],
+  "author": "CodeShield.ai",
+  "license": "MIT",
+  "homepage": "https://codeshield.sh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gonzalo283/codeshield"
+  }
+}

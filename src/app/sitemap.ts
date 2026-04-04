@@ -74,5 +74,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...blogPages, ...languagePages, ...vulnPages];
+  const scanFree: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/scan-free`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+  ];
+
+  return [...staticPages, ...scanFree, ...blogPages, ...languagePages, ...vulnPages];
 }
