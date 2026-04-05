@@ -38,10 +38,10 @@ export const metadata: Metadata = {
       "45% of AI code has vulnerabilities. NIST deprecates RSA/ECDSA by 2030. Scan repos, detect quantum-vulnerable crypto, auto-fix with AI.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=45%25%20of%20AI%20code%20has%20vulnerabilities",
         width: 1200,
         height: 630,
-        alt: "CodeShield.ai — AI Code Security Scanner",
+        alt: "CodeShield — AI Code Security Scanner",
       },
     ],
   },
