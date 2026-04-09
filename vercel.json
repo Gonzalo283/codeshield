@@ -1,4 +1,18 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/ping-search-engines",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/scan-trending",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/generate-stats?update=true",
+      "schedule": "0 7 * * 1"
+    }
+  ]
 }
