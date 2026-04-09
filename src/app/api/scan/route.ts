@@ -4,13 +4,25 @@ import { authOptions } from "@/lib/auth";
 import { fetchRepoFiles } from "@/lib/github";
 import { scanFiles } from "@/lib/scanner";
 import { getUsage, canScan, incrementUsage, serializeUsage } from "@/lib/usage";
+import { rateLimit, getClientIp, verifyCsrf, logRequest } from "@/lib/security";
 import { ScanResult, Severity } from "@/types";
 
 export async function POST(request: NextRequest) {
   try {
+    if (!verifyCsrf(request)) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const session = await getServerSession(authOptions);
     if (!session) {
       return Response.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    // Rate limit: 30 scans per hour
+    const ip = getClientIp(request);
+    const limit = rateLimit(ip, { maxRequests: 30, windowMs: 60 * 60 * 1000 });
+    if (!limit.allowed) {
+      return Response.json({ error: "Rate limit exceeded" }, { status: 429 });
     }
 
     // Check usage limits (free tier)
@@ -38,6 +50,8 @@ export async function POST(request: NextRequest) {
     if (!/^[a-zA-Z0-9._-]+$/.test(owner) || !/^[a-zA-Z0-9._-]+$/.test(repo)) {
       return Response.json({ error: "Invalid owner or repo name" }, { status: 400 });
     }
+
+    logRequest(request, `scan ${owner}/${repo} by ${session.user?.email}`);
 
     const files = await fetchRepoFiles(owner, repo, accessToken);
     const vulnerabilities = scanFiles(files);

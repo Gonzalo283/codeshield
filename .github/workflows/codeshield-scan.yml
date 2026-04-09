@@ -3,8 +3,6 @@ name: CodeShield Security Scan
 on:
   pull_request:
     types: [opened, synchronize]
-  push:
-    branches: [main, master]
 
 permissions:
   contents: read
