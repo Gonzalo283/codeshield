@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { GitHubRepo, ScanResult } from "@/types";
+import { Nav } from "@/components/nav";
 
 interface RepoWithScan extends GitHubRepo {
   scanResult?: ScanResult;
@@ -176,52 +177,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-bg-primary">
       {/* ── Sticky Nav ── */}
-      <nav className="sticky top-0 z-50 backdrop-blur-lg bg-bg-primary/80 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-          {/* Left: logo + nav links */}
-          <div className="flex items-center gap-6">
-            <a href="/dashboard" className="flex items-center gap-2.5 shrink-0">
-              <img src="/logo.svg" width={24} height={24} alt="CodeShield" />
-              <span className="font-bold text-[15px] tracking-tight text-text-primary hidden sm:inline">
-                CodeShield<span className="text-green">.ai</span>
-              </span>
-            </a>
-            <div className="hidden sm:flex items-center gap-1">
-              <a
-                href="/dashboard"
-                className="px-3 py-1.5 text-sm font-medium text-text-primary bg-bg-elevated rounded-lg"
-              >
-                Dashboard
-              </a>
-              <a
-                href="/pricing"
-                className="px-3 py-1.5 text-sm font-medium text-text-dim hover:text-text-secondary transition-colors rounded-lg"
-              >
-                Pricing
-              </a>
-              <a
-                href="/account"
-                className="px-3 py-1.5 text-sm font-medium text-text-dim hover:text-text-secondary transition-colors rounded-lg"
-              >
-                Account
-              </a>
-            </div>
-          </div>
-
-          {/* Right: user + sign out */}
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-text-secondary hidden sm:inline">
-              {session?.user?.name}
-            </span>
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-sm text-text-dim hover:text-text-secondary transition-colors"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Nav variant="app" user={session?.user} onSignOut={() => signOut({ callbackUrl: "/" })} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* ── Stats Header ── */}

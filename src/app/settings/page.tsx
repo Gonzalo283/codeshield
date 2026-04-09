@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Providers from "../providers";
+import { Nav } from "@/components/nav";
 
 function SettingsContent() {
   const { data: session, status } = useSession();
@@ -34,23 +35,7 @@ function SettingsContent() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      <nav className="sticky top-0 z-50 backdrop-blur-lg bg-bg-primary/80 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <a href="/dashboard" className="flex items-center gap-2.5">
-              <img src="/logo.svg" width={24} height={24} alt="CodeShield" />
-              <span className="font-bold text-text-primary font-mono hidden sm:inline">CodeShield</span>
-            </a>
-            <div className="hidden sm:flex items-center gap-1">
-              <a href="/dashboard" className="px-3 py-1.5 text-sm text-text-dim hover:text-text-secondary transition-colors rounded-lg">Dashboard</a>
-              <a href="/settings" className="px-3 py-1.5 text-sm font-medium text-text-primary bg-bg-elevated rounded-lg">Settings</a>
-            </div>
-          </div>
-          <button onClick={() => signOut({ callbackUrl: "/" })} className="text-sm text-text-dim hover:text-text-secondary transition-colors">
-            Sign Out
-          </button>
-        </div>
-      </nav>
+      <Nav variant="app" user={session?.user} onSignOut={() => signOut({ callbackUrl: "/" })} />
 
       <div className="max-w-3xl mx-auto px-6 md:px-8 py-8 md:py-12">
         <h1 className="text-2xl font-bold text-text-primary mb-8">Settings</h1>

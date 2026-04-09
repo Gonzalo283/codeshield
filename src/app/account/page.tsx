@@ -3,6 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, Suspense } from "react";
+import { Nav } from "@/components/nav";
 import Providers from "../providers";
 
 function AccountContent() {
@@ -44,34 +45,7 @@ function AccountContent() {
 
   return (
     <div className="min-h-screen bg-bg-primary">
-      {/* Nav */}
-      <nav className="border-b border-border bg-bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <a href="/dashboard" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center border border-green/30">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00ff88" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </div>
-              <span className="font-bold text-lg tracking-tight text-text-primary">
-                CodeShield<span className="text-green">.ai</span>
-              </span>
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="/dashboard" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
-              Dashboard
-            </a>
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-sm text-text-dim hover:text-text-secondary transition-colors"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Nav variant="app" user={session?.user} onSignOut={() => signOut({ callbackUrl: "/" })} />
 
       <div className="max-w-3xl mx-auto px-8 py-8">
         {checkoutSuccess && (

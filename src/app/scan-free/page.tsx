@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Vulnerability, Severity } from "@/types";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 type ScanMode = "repo" | "code";
 
@@ -101,32 +104,21 @@ export default function ScanFreePage() {
   return (
     <div className="min-h-screen bg-bg-primary">
       {/* Nav */}
-      <nav className="sticky top-0 z-50 backdrop-blur-lg bg-bg-primary/80 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="CodeShield" width={24} height={24} />
-            <span className="font-bold text-text-primary font-mono text-[15px]">CodeShield</span>
-          </Link>
-          <div className="flex items-center gap-4 text-sm">
-            <Link href="/pricing" className="text-text-dim hover:text-text-secondary transition-colors hidden sm:block">Pricing</Link>
-            <Link href="/dashboard" className="btn-primary text-sm px-4 py-2">
-              Sign In with GitHub
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Nav variant="marketing" onSignIn={() => { window.location.href = "/dashboard"; }} />
 
       <div className="max-w-4xl mx-auto px-6 md:px-8 py-10 md:py-16">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-3">
-            Free Security Scanner
-          </h1>
-          <p className="text-text-secondary max-w-lg mx-auto">
-            Paste a public GitHub repo URL or your code. No login required.
-            We detect OWASP vulnerabilities, leaked secrets, and quantum-unsafe crypto.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-3">
+              Free Security Scanner
+            </h1>
+            <p className="text-text-secondary max-w-lg mx-auto">
+              Paste a public GitHub repo URL or your code. No login required.
+              We detect OWASP vulnerabilities, leaked secrets, and quantum-unsafe crypto.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Mode toggle */}
         <div className="flex justify-center mb-6">
@@ -337,6 +329,8 @@ export default function ScanFreePage() {
           </div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

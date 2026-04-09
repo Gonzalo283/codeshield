@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -57,18 +59,7 @@ const badgeStyles = {
 export default function ChangelogPage() {
   return (
     <div className="min-h-screen bg-bg-primary">
-      <nav className="sticky top-0 z-50 backdrop-blur-lg bg-bg-primary/80 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="CodeShield" width={24} height={24} />
-            <span className="font-bold text-text-primary font-mono">CodeShield</span>
-          </Link>
-          <div className="flex items-center gap-6 text-sm">
-            <Link href="/docs" className="text-text-dim hover:text-text-secondary transition-colors">Docs</Link>
-            <Link href="/blog" className="text-text-dim hover:text-text-secondary transition-colors">Blog</Link>
-          </div>
-        </div>
-      </nav>
+      <Nav variant="marketing" />
 
       <div className="max-w-3xl mx-auto px-6 md:px-8 py-12 md:py-20">
         <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Changelog</h1>
@@ -110,6 +101,8 @@ export default function ChangelogPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
