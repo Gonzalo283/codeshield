@@ -2,9 +2,9 @@ export function OrganizationJsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "CodeShield.ai",
-    url: "https://codeshield.ai",
-    logo: "https://codeshield.ai/logo.png",
+    name: "CodeShield.sh",
+    url: "https://codeshield.sh",
+    logo: "https://codeshield.sh/logo.png",
     description:
       "The only security platform that makes AI-generated code quantum-safe. Scan GitHub repos for vulnerabilities and auto-fix with AI.",
     foundingDate: "2026",
@@ -14,7 +14,7 @@ export function OrganizationJsonLd() {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "hello@codeshield.ai",
+      email: "hello@codeshield.sh",
       contactType: "customer support",
     },
   };
@@ -31,7 +31,7 @@ export function SoftwareApplicationJsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "CodeShield.ai",
+    name: "CodeShield.sh",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web",
     offers: [
@@ -112,17 +112,17 @@ export function BlogPostJsonLd({
     dateModified: datePublished,
     author: {
       "@type": "Organization",
-      name: "CodeShield.ai",
-      url: "https://codeshield.ai",
+      name: "CodeShield.sh",
+      url: "https://codeshield.sh",
     },
     publisher: {
       "@type": "Organization",
-      name: "CodeShield.ai",
-      logo: { "@type": "ImageObject", url: "https://codeshield.ai/logo.png" },
+      name: "CodeShield.sh",
+      logo: { "@type": "ImageObject", url: "https://codeshield.sh/logo.png" },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://codeshield.ai/blog/${slug}`,
+      "@id": `https://codeshield.sh/blog/${slug}`,
     },
   };
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Documentation",
-  description: "Get started with CodeShield.ai. Learn how to scan repos, set up GitHub Actions, and use the API.",
+  description: "Get started with CodeShield.sh. Learn how to scan repos, set up GitHub Actions, and use the API.",
 };
 
 const sections = [
@@ -65,7 +65,7 @@ jobs:
       {
         title: "POST /api/scan",
         body: "Scan a repository for vulnerabilities.",
-        code: `curl -X POST https://codeshield.ai/api/scan \\
+        code: `curl -X POST https://codeshield.sh/api/scan \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \\
   -d '{
@@ -77,7 +77,7 @@ jobs:
       {
         title: "POST /api/fix",
         body: "Generate an AI-powered fix for a vulnerability. Requires Team plan or above.",
-        code: `curl -X POST https://codeshield.ai/api/fix \\
+        code: `curl -X POST https://codeshield.sh/api/fix \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \\
   -d '{
@@ -137,7 +137,7 @@ export default function DocsPage() {
 
       <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-20">
         <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Documentation</h1>
-        <p className="text-text-secondary mb-12">Everything you need to get started with CodeShield.ai.</p>
+        <p className="text-text-secondary mb-12">Everything you need to get started with CodeShield.sh.</p>
 
         {/* TOC */}
         <div className="bg-bg-surface border border-border rounded-xl p-6 mb-12">

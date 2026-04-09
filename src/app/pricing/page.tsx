@@ -107,7 +107,7 @@ const faqs = [
   {
     question: "Do you support on-premise or air-gapped deployments?",
     answer:
-      "Yes. Our Enterprise plan includes self-hosted and on-premise deployment options, including fully air-gapped environments. Contact our sales team at enterprise@codeshield.ai for details.",
+      "Yes. Our Enterprise plan includes self-hosted and on-premise deployment options, including fully air-gapped environments. Contact our sales team at enterprise@codeshield.sh for details.",
   },
 ];
 
@@ -187,7 +187,7 @@ function PricingContent() {
 
   const handleSelectPlan = async (planId: string) => {
     if (planId === "enterprise") {
-      window.location.href = "mailto:enterprise@codeshield.ai";
+      window.location.href = "mailto:enterprise@codeshield.sh";
       return;
     }
 
@@ -335,7 +335,7 @@ function PricingContent() {
 
               {plan.enterprise ? (
                 <a
-                  href="mailto:enterprise@codeshield.ai"
+                  href="mailto:enterprise@codeshield.sh"
                   className="w-full py-3 rounded-xl text-sm font-semibold transition-all bg-bg-primary border border-border-light text-text-primary hover:border-green/50 hover:text-green text-center block"
                 >
                   {plan.cta}

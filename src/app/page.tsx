@@ -384,8 +384,8 @@ function HomePage() {
             <div>
               <h4 className="text-xs font-semibold text-text-dim uppercase tracking-wider mb-4">Company</h4>
               <ul className="space-y-2.5 text-sm">
-                <li><a href="mailto:hello@codeshield.ai" className="text-text-secondary hover:text-text-primary transition-colors">Contact</a></li>
-                <li><a href="mailto:enterprise@codeshield.ai" className="text-text-secondary hover:text-text-primary transition-colors">Enterprise</a></li>
+                <li><a href="mailto:hello@codeshield.sh" className="text-text-secondary hover:text-text-primary transition-colors">Contact</a></li>
+                <li><a href="mailto:enterprise@codeshield.sh" className="text-text-secondary hover:text-text-primary transition-colors">Enterprise</a></li>
               </ul>
             </div>
             <div>
@@ -400,7 +400,7 @@ function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
             <div className="flex items-center gap-2.5">
               <img src="/logo.svg" alt="" width={20} height={20} />
-              <span className="text-sm text-text-dim">&copy; 2026 CodeShield.ai</span>
+              <span className="text-sm text-text-dim">&copy; 2026 CodeShield.sh</span>
             </div>
             <div className="flex items-center gap-4">
               <a href="https://github.com/codeshield-ai" className="text-text-dim hover:text-text-secondary transition-colors" aria-label="GitHub">

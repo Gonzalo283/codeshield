@@ -564,7 +564,7 @@ export async function generateMetadata({
     ],
     alternates: { canonical: `/vulnerabilities/${type}` },
     openGraph: {
-      title: `${vuln.metaTitle} | CodeShield.ai`,
+      title: `${vuln.metaTitle} | CodeShield.sh`,
       description: `Detect and auto-fix ${vuln.title} in AI-generated code. Real code examples and secure alternatives.`,
     },
   };
@@ -818,7 +818,7 @@ export default async function VulnerabilityPage({
               </svg>
             </div>
             <span className="text-sm text-text-dim">
-              CodeShield.ai &copy; {new Date().getFullYear()}
+              CodeShield.sh &copy; {new Date().getFullYear()}
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-text-dim">
@@ -829,7 +829,7 @@ export default async function VulnerabilityPage({
               Pricing
             </Link>
             <a
-              href="mailto:hello@codeshield.ai"
+              href="mailto:hello@codeshield.sh"
               className="hover:text-text-secondary transition-colors"
             >
               Contact

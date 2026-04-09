@@ -109,7 +109,7 @@ const post = {
   <li>Third-party libraries and SDKs that embed cryptographic operations</li>
 </ul>
 
-<p>Manual inventory is impractical for any non-trivial system. Automated tools like <strong>CodeShield.ai</strong> can scan your entire codebase and infrastructure to produce a complete cryptographic inventory in minutes rather than months.</p>
+<p>Manual inventory is impractical for any non-trivial system. Automated tools like <strong>CodeShield.sh</strong> can scan your entire codebase and infrastructure to produce a complete cryptographic inventory in minutes rather than months.</p>
 
 <h3>Step 2: Assess Risk and Exposure</h3>
 
@@ -224,9 +224,9 @@ is_valid = verifier.verify(b"message", signature, public_key)
 
 <p>Building a CBOM manually is error-prone and does not scale. Modern codebases pull in hundreds of dependencies, each potentially importing its own cryptographic libraries. A developer might use <code>crypto.createSign('RSA-SHA256')</code> in application code while a transitive dependency calls OpenSSL directly through native bindings.</p>
 
-<p><strong>CodeShield.ai</strong> automates this entire process. It performs deep static analysis of your codebase to discover every cryptographic operation -- including those buried in third-party dependencies -- and generates a complete CBOM. It flags quantum-vulnerable algorithms, maps them to their NIST PQC replacements, and prioritizes remediation based on risk exposure. This turns a months-long manual audit into an automated, repeatable scan that integrates into your CI/CD pipeline.</p>
+<p><strong>CodeShield.sh</strong> automates this entire process. It performs deep static analysis of your codebase to discover every cryptographic operation -- including those buried in third-party dependencies -- and generates a complete CBOM. It flags quantum-vulnerable algorithms, maps them to their NIST PQC replacements, and prioritizes remediation based on risk exposure. This turns a months-long manual audit into an automated, repeatable scan that integrates into your CI/CD pipeline.</p>
 
-<p>Other tools in the ecosystem include IBM's Quantum Safe Explorer, Cryptosense Analyzer, and the open-source crypolib-finder. However, for developer-centric workflows with tight CI/CD integration and actionable remediation guidance, CodeShield.ai provides the most streamlined path from discovery to migration.</p>
+<p>Other tools in the ecosystem include IBM's Quantum Safe Explorer, Cryptosense Analyzer, and the open-source crypolib-finder. However, for developer-centric workflows with tight CI/CD integration and actionable remediation guidance, CodeShield.sh provides the most streamlined path from discovery to migration.</p>
 
 <h2>Putting It All Together: Your Migration Checklist</h2>
 
@@ -246,7 +246,7 @@ is_valid = verifier.verify(b"message", signature, public_key)
 
 <p>Every week of delay is another week of encrypted data potentially harvested for future decryption. The standards are finalized. The tools exist. The regulatory deadlines are set. The only remaining variable is when <em>you</em> begin.</p>
 
-<p><strong><a href="/dashboard">Scan your codebase for quantum-vulnerable cryptography with CodeShield.ai</a></strong> -- get a complete CBOM and a prioritized migration plan in minutes, not months.</p>
+<p><strong><a href="/dashboard">Scan your codebase for quantum-vulnerable cryptography with CodeShield.sh</a></strong> -- get a complete CBOM and a prioritized migration plan in minutes, not months.</p>
   `.trim(),
 };
 

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog | CodeShield.ai",
+  title: "Blog | CodeShield.sh",
   description:
     "Security insights for AI-generated code. Learn about OWASP vulnerabilities, post-quantum cryptography, and how to secure code from Copilot, Cursor, and ChatGPT.",
 };

@@ -166,7 +166,7 @@ const serverSecret = kem.decaps(ciphertext, secretKey);
 
 <p>The migration from RSA to ML-KEM is not optional. It is a matter of when, not if. Starting now gives you the advantage of migrating on your own timeline rather than scrambling to meet a compliance deadline.</p>
 
-<p>CodeShield.ai scans your entire codebase and identifies every instance of quantum-vulnerable cryptography: RSA, ECDSA, ECDH, DH, and weak symmetric algorithms. It generates a <strong>Cryptographic Bill of Materials (CBOM)</strong> showing exactly what needs to migrate and provides AI-powered fix suggestions to replace vulnerable code with post-quantum alternatives.</p>
+<p>CodeShield.sh scans your entire codebase and identifies every instance of quantum-vulnerable cryptography: RSA, ECDSA, ECDH, DH, and weak symmetric algorithms. It generates a <strong>Cryptographic Bill of Materials (CBOM)</strong> showing exactly what needs to migrate and provides AI-powered fix suggestions to replace vulnerable code with post-quantum alternatives.</p>
 
 <p><strong><a href="/dashboard">Find all RSA in your codebase in 30 seconds</a></strong> -- connect your GitHub repos and get a complete inventory of quantum-vulnerable cryptography in your first scan.</p>
 `.trim(),

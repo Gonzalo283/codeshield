@@ -1,5 +1,5 @@
 /**
- * GitHub Webhook Handler — CodeShield.ai
+ * GitHub Webhook Handler — CodeShield.sh
  *
  * Receives GitHub webhook events and triggers automatic security scans.
  *

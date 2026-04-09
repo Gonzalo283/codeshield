@@ -1027,7 +1027,7 @@ export async function generateMetadata({
 
   return {
     title: pageTitle,
-    description: `Detect and fix ${entry.title} (${entry.cweId}) in AI-generated code. Real vulnerable code examples, secure alternatives, and automated scanning with CodeShield.ai.`,
+    description: `Detect and fix ${entry.title} (${entry.cweId}) in AI-generated code. Real vulnerable code examples, secure alternatives, and automated scanning with CodeShield.sh.`,
     keywords: [
       entry.cweId,
       entry.title,
@@ -1040,13 +1040,13 @@ export async function generateMetadata({
     ],
     alternates: { canonical: `/vuln/${cwe}` },
     openGraph: {
-      title: `${pageTitle} | CodeShield.ai`,
+      title: `${pageTitle} | CodeShield.sh`,
       description: `Detect and auto-fix ${entry.title} (${entry.cweId}) in AI-generated code. Real code examples and secure alternatives.`,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${pageTitle} | CodeShield.ai`,
+      title: `${pageTitle} | CodeShield.sh`,
       description: `Detect and auto-fix ${entry.title} (${entry.cweId}) in AI-generated code.`,
     },
   };
@@ -1073,7 +1073,7 @@ export default async function CWEVulnerabilityPage({
       {/* ── Nav ── */}
       <nav className="flex items-center justify-between px-6 md:px-8 py-5 max-w-7xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.svg" width={24} height={24} alt="CodeShield.ai logo" />
+          <img src="/logo.svg" width={24} height={24} alt="CodeShield.sh logo" />
           <span className="font-bold text-lg tracking-tight text-text-primary">
             CodeShield<span className="text-green">.ai</span>
           </span>
@@ -1230,7 +1230,7 @@ export default async function CWEVulnerabilityPage({
           <div className="flex items-center gap-2">
             <img src="/logo.svg" width={16} height={16} alt="" />
             <span className="text-sm text-text-dim">
-              CodeShield.ai &copy; {new Date().getFullYear()}
+              CodeShield.sh &copy; {new Date().getFullYear()}
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-text-dim">
@@ -1240,7 +1240,7 @@ export default async function CWEVulnerabilityPage({
             <Link href="/scan-free" className="hover:text-text-secondary transition-colors">
               Free Scan
             </Link>
-            <a href="mailto:hello@codeshield.ai" className="hover:text-text-secondary transition-colors">
+            <a href="mailto:hello@codeshield.sh" className="hover:text-text-secondary transition-colors">
               Contact
             </a>
           </div>

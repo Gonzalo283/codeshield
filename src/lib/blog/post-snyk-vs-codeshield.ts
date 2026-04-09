@@ -2,7 +2,7 @@ import { registerPost } from "./posts";
 const post = {
   slug: "snyk-vs-codeshield-ai-code-security",
   title: "Snyk vs CodeShield: Which Scanner Catches AI Code Vulnerabilities?",
-  description: "Honest comparison of Snyk and CodeShield.ai for AI-generated code security. Where each tool excels, and why PQC changes the equation.",
+  description: "Honest comparison of Snyk and CodeShield.sh for AI-generated code security. Where each tool excels, and why PQC changes the equation.",
   date: "2026-03-10",
   readTime: "10 min read",
   keyword: "snyk alternative ai code security",
@@ -12,7 +12,7 @@ const post = {
 
 <p>But the security landscape is shifting. Two forces are reshaping what developers need from a code scanner: the explosion of <strong>AI-generated code</strong> and the looming <strong>post-quantum cryptographic (PQC) migration</strong>. These shifts create gaps that traditional scanners were not designed to fill.</p>
 
-<p>This is an honest comparison of Snyk and CodeShield.ai. We will tell you where Snyk wins, where CodeShield wins, and when you should use each tool -- or both.</p>
+<p>This is an honest comparison of Snyk and CodeShield.sh. We will tell you where Snyk wins, where CodeShield wins, and when you should use each tool -- or both.</p>
 
 <h2>Snyk: What It Does Well</h2>
 
@@ -59,7 +59,7 @@ const post = {
 
 <h2>CodeShield: Built for the AI + PQC Era</h2>
 
-<p>CodeShield.ai was designed from the ground up for two specific use cases: securing AI-generated code and enabling post-quantum cryptographic migration.</p>
+<p>CodeShield.sh was designed from the ground up for two specific use cases: securing AI-generated code and enabling post-quantum cryptographic migration.</p>
 
 <h3>PQC scanning and CBOM generation</h3>
 

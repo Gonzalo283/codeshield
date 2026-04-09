@@ -18,7 +18,7 @@ const blogSlugs = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXTAUTH_URL || "https://codeshield.ai";
+  const baseUrl = process.env.NEXTAUTH_URL || "https://codeshield.sh";
 
   const staticPages: MetadataRoute.Sitemap = [
     {

@@ -190,7 +190,7 @@ function displayMessage(message) {
 
 <p>Automated security scanning catches what AI gets wrong. A scanner that understands OWASP categories can flag SQL injection, XSS, hardcoded secrets, broken authentication, and security misconfigurations in seconds, not hours.</p>
 
-<p>CodeShield.ai was built specifically for this use case. It scans AI-generated code against all OWASP Top 10 categories, identifies post-quantum cryptographic risks, and provides AI-powered auto-fix suggestions that maintain functional correctness while eliminating vulnerabilities.</p>
+<p>CodeShield.sh was built specifically for this use case. It scans AI-generated code against all OWASP Top 10 categories, identifies post-quantum cryptographic risks, and provides AI-powered auto-fix suggestions that maintain functional correctness while eliminating vulnerabilities.</p>
 
 <p><strong><a href="/dashboard">Auto-detect OWASP vulnerabilities in your AI code</a></strong> -- connect your GitHub repos and get your first scan results in under 60 seconds.</p>
 `.trim(),

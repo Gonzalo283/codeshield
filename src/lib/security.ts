@@ -1,5 +1,5 @@
 // ── Enterprise Security Module ──
-// Centralized security utilities for CodeShield.ai
+// Centralized security utilities for CodeShield.sh
 
 import { NextRequest } from "next/server";
 

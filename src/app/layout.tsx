@@ -5,8 +5,8 @@ import { GoogleAnalytics, PostHogAnalytics } from "@/components/analytics";
 
 export const metadata: Metadata = {
   title: {
-    default: "CodeShield.ai — Secure AI-Generated Code | Post-Quantum Ready",
-    template: "%s | CodeShield.ai",
+    default: "CodeShield.sh — Secure AI-Generated Code | Post-Quantum Ready",
+    template: "%s | CodeShield.sh",
   },
   description:
     "The only security platform that makes AI-generated code quantum-safe. Scan GitHub repos for OWASP Top 10, secrets, and quantum-vulnerable crypto. Auto-fix with Claude AI.",
@@ -25,15 +25,15 @@ export const metadata: Metadata = {
     "CBOM",
     "Snyk alternative",
   ],
-  authors: [{ name: "CodeShield.ai" }],
-  creator: "CodeShield.ai",
-  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://codeshield.ai"),
+  authors: [{ name: "CodeShield.sh" }],
+  creator: "CodeShield.sh",
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://codeshield.sh"),
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "CodeShield.ai",
-    title: "CodeShield.ai — The only platform that makes AI code quantum-safe",
+    siteName: "CodeShield.sh",
+    title: "CodeShield.sh — The only platform that makes AI code quantum-safe",
     description:
       "45% of AI code has vulnerabilities. NIST deprecates RSA/ECDSA by 2030. Scan repos, detect quantum-vulnerable crypto, auto-fix with AI.",
     images: [
@@ -47,10 +47,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CodeShield.ai — The only platform that makes AI code quantum-safe",
+    title: "CodeShield.sh — The only platform that makes AI code quantum-safe",
     description:
       "45% of AI code has vulnerabilities. NIST deprecates RSA/ECDSA by 2030. Scan repos, detect quantum-vulnerable crypto, auto-fix with AI.",
-    images: ["/og-image.png"],
+    images: ["/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=45%25%20of%20AI%20code%20has%20vulnerabilities"],
   },
   robots: {
     index: true,

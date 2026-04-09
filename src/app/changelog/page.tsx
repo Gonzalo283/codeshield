@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Changelog",
-  description: "What's new in CodeShield.ai. Release notes, new features, and improvements.",
+  description: "What's new in CodeShield.sh. Release notes, new features, and improvements.",
 };
 
 const releases = [

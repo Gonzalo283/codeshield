@@ -215,9 +215,9 @@ app.use(cors({
 
 <p>The vulnerability landscape for AI-generated code evolves quickly. New model versions produce new patterns. Security tools need rule sets that are continuously updated to match the latest LLM output patterns, not just legacy vulnerability databases. Ai generated code security scanning that was effective six months ago may miss new patterns today.</p>
 
-<h2>How CodeShield.ai Addresses AI-Generated Code Risks</h2>
+<h2>How CodeShield.sh Addresses AI-Generated Code Risks</h2>
 
-<p>We built CodeShield.ai specifically for this new reality. Unlike legacy SAST tools designed for hand-written code, CodeShield's analysis engine is trained on the specific vulnerability patterns that LLMs produce. It detects the six vulnerability classes outlined above, flags post-quantum cryptographic risks, and integrates directly into your CI/CD pipeline so that no AI-generated code ships without security review.</p>
+<p>We built CodeShield.sh specifically for this new reality. Unlike legacy SAST tools designed for hand-written code, CodeShield's analysis engine is trained on the specific vulnerability patterns that LLMs produce. It detects the six vulnerability classes outlined above, flags post-quantum cryptographic risks, and integrates directly into your CI/CD pipeline so that no AI-generated code ships without security review.</p>
 
 <p>Key capabilities include:</p>
 
@@ -236,7 +236,7 @@ app.use(cors({
 
 <p>The cost of getting this wrong -- $4.63 million per breach, on average -- dwarfs the cost of getting it right.</p>
 
-<p><strong><a href="/dashboard">Start scanning your codebase with CodeShield.ai</a></strong> and find out what your AI-generated code is really shipping.</p>
+<p><strong><a href="/dashboard">Start scanning your codebase with CodeShield.sh</a></strong> and find out what your AI-generated code is really shipping.</p>
   `.trim(),
 };
 

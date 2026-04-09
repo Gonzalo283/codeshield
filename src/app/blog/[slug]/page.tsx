@@ -17,17 +17,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) {
-    return { title: "Post Not Found | CodeShield.ai" };
+    return { title: "Post Not Found | CodeShield.sh" };
   }
   return {
-    title: `${post.title} | CodeShield.ai`,
+    title: `${post.title} | CodeShield.sh`,
     description: post.description,
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       publishedTime: post.date,
-      url: `https://codeshield.ai/blog/${post.slug}`,
+      url: `https://codeshield.sh/blog/${post.slug}`,
     },
   };
 }
@@ -128,7 +128,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Author line */}
         <p className="text-sm text-text-secondary font-mono mb-10">
-          CodeShield.ai Team &middot; {post.date} &middot; {post.readTime}
+          CodeShield.sh Team &middot; {post.date} &middot; {post.readTime}
         </p>
 
         {/* Content */}
