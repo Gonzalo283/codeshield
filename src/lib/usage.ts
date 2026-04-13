@@ -4,6 +4,8 @@
 import { cookies } from "next/headers";
 import { db } from "./db";
 import { getActiveSubscription } from "./subscriptions";
+import { sendEmail, emailTemplates } from "./email";
+import { log } from "./logger";
 
 const FREE_SCAN_LIMIT = 10;
 const COOKIE_NAME = "cs_usage";
@@ -163,7 +165,52 @@ export async function logUsage(input: {
         ip: input.ip || null,
       },
     });
+
+    // After-the-fact: warn the user once when they cross 80% of the free quota.
+    // We do this only for "ok" scans with a userId, to avoid firing on errors.
+    if (input.status === "ok" && input.userId) {
+      await maybeSendUsageWarning(input.userId).catch(() => {});
+    }
   } catch {
     // Never fail the request because of audit logging
   }
+}
+
+// ── 80%-quota warning (fires at most once per month per user) ──
+const WARNING_THRESHOLD = 0.8;
+
+async function maybeSendUsageWarning(userId: string) {
+  const usage = await getUserUsage(userId);
+  if (usage.limit === -1) return; // unlimited, nothing to warn
+  const threshold = Math.floor(usage.limit * WARNING_THRESHOLD);
+  if (usage.scansThisMonth < threshold) return;
+
+  // Check if we already warned this month
+  const alreadyWarned = await db.usageLog.findFirst({
+    where: {
+      userId,
+      endpoint: "__email:usage-warning",
+      createdAt: { gte: usage.monthStart, lt: usage.monthEnd },
+    },
+  });
+  if (alreadyWarned) return;
+
+  const user = await db.user.findUnique({ where: { id: userId }, select: { email: true } });
+  if (!user?.email) return;
+
+  await sendEmail({
+    to: user.email,
+    ...emailTemplates.usageWarning(usage.scansThisMonth, usage.limit),
+  });
+
+  // Mark as warned (idempotency marker) — reuse UsageLog with a distinctive endpoint
+  await db.usageLog.create({
+    data: {
+      userId,
+      endpoint: "__email:usage-warning",
+      status: "ok",
+    },
+  });
+
+  log.info("usage-warning-sent", { userId, used: usage.scansThisMonth, limit: usage.limit });
 }

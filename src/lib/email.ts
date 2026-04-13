@@ -84,16 +84,43 @@ ${content}
 }
 
 export const emailTemplates = {
-  welcome: (name: string) => ({
-    subject: "Welcome to CodeShield",
-    html: wrap(`
-      <h1 style="font-size:24px;margin:0 0 16px">Welcome, ${escape(name)}</h1>
-      <p>You're all set. Start scanning your first repo from the dashboard.</p>
-      <p><a href="https://codeshield.sh/dashboard" style="display:inline-block;background:#22c55e;color:#000;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600">Open Dashboard</a></p>
-      <p>Questions? Just reply to this email.</p>
-    `),
-    text: `Welcome to CodeShield, ${name}. Open your dashboard: https://codeshield.sh/dashboard`,
-  }),
+  welcome: (name: string) => {
+    const firstName = (name || "there").split(" ")[0];
+    return {
+      subject: "Welcome to CodeShield",
+      // Founder-voice plain email (Zeno-style). Deliverability > design.
+      html: `<!doctype html>
+<html><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#0a0a0a;line-height:1.65;font-size:15px">
+<p>Hey ${escape(firstName)},</p>
+<p>I'm Gonzalo — the founder of CodeShield.</p>
+<p>We built CodeShield because we got tired of watching teams ship AI-generated code that nobody ever security-reviewed. 45% of what Copilot, Cursor and Claude write has a vulnerability — and most of it goes straight to production.</p>
+<p>Here are 3 things to do right now to get value out of CodeShield:</p>
+<ol style="padding-left:20px;margin:16px 0">
+  <li style="margin-bottom:8px"><a href="https://codeshield.sh/dashboard" style="color:#16a34a">Scan your first repo</a> (60 seconds)</li>
+  <li style="margin-bottom:8px"><a href="https://codeshield.sh/settings" style="color:#16a34a">Generate an API key</a> to plug CodeShield into your CI</li>
+  <li><a href="https://codeshield.sh/docs#github-action" style="color:#16a34a">Add our GitHub Action</a> so every PR gets scanned automatically</li>
+</ol>
+<p><strong>P.S. — What brought you here?</strong> Hit reply and tell me. I read every email personally, and your answer helps me prioritize what we build next.</p>
+<p>Cheers,<br>Gonzalo</p>
+<p style="color:#666;font-size:12px;margin-top:32px">CodeShield.sh — you can <a href="https://codeshield.sh/settings" style="color:#666">manage notifications</a> anytime.</p>
+</body></html>`,
+      text: `Hey ${firstName},
+
+I'm Gonzalo — the founder of CodeShield.
+
+We built CodeShield because we got tired of watching teams ship AI-generated code that nobody ever security-reviewed. 45% of what Copilot, Cursor and Claude write has a vulnerability — and most of it goes straight to production.
+
+3 things to do right now:
+1. Scan your first repo — https://codeshield.sh/dashboard
+2. Generate an API key — https://codeshield.sh/settings
+3. Add our GitHub Action — https://codeshield.sh/docs#github-action
+
+P.S. What brought you here? Hit reply and tell me. I read every email personally.
+
+Cheers,
+Gonzalo`,
+    };
+  },
 
   subscriptionActivated: (planId: string) => ({
     subject: `Your ${planId} plan is active`,

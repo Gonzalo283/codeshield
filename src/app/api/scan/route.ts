@@ -14,6 +14,7 @@ import {
 import { rateLimit, getClientIp, verifyCsrf, logRequest } from "@/lib/security";
 import { db } from "@/lib/db";
 import { log } from "@/lib/logger";
+import { sendEmail, emailTemplates } from "@/lib/email";
 import { ScanResult, Severity } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -136,6 +137,14 @@ export async function POST(request: NextRequest) {
         status: "ok",
         ip,
       });
+
+      // Email alert if critical findings (fire-and-forget, never block response)
+      if (summary.critical > 0 && session.user?.email) {
+        sendEmail({
+          to: session.user.email,
+          ...emailTemplates.scanCriticalFound(repoFullName, summary.critical),
+        }).catch(() => {});
+      }
 
       return Response.json({ ...result, usage: { scansRecorded: true } });
     }

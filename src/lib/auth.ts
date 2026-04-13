@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { Adapter } from "next-auth/adapters";
 import { db } from "./db";
 import { log } from "./logger";
+import { sendEmail, emailTemplates } from "./email";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
@@ -65,6 +66,21 @@ export const authOptions: NextAuthOptions = {
         }
       }
       return true;
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      // Fires ONCE per user — on first GitHub signin with PrismaAdapter
+      if (!user.email) return;
+      try {
+        await sendEmail({
+          to: user.email,
+          ...emailTemplates.welcome(user.name || ""),
+        });
+        log.info("welcome-email-sent", { userId: user.id, email: user.email });
+      } catch (e) {
+        log.warn("welcome-email-failed", { userId: user.id, error: String(e) });
+      }
     },
   },
   pages: {
