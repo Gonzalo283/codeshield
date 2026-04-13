@@ -22,8 +22,10 @@ const columns = [
   {
     title: "Company",
     links: [
-      { href: "mailto:hello@codeshield.sh", label: "Contact" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
       { href: "mailto:enterprise@codeshield.sh", label: "Enterprise" },
+      { href: "/changelog", label: "Changelog" },
     ],
   },
   {

@@ -24,14 +24,16 @@ export function Nav({ variant = "marketing", user, onSignIn, onSignOut }: NavPro
 
   // Close mobile menu on route change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMobileOpen(false);
   }, [pathname]);
 
   const marketingLinks = [
     { href: "/#features", label: "Features" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/blog", label: "Blog" },
     { href: "/docs", label: "Docs" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About" },
   ];
 
   const appLinks = [

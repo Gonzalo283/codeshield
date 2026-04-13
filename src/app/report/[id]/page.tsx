@@ -122,6 +122,8 @@ export default function ReportPage({
   const [report, setReport] = useState<Report | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  // Snapshot 'now' once at mount to keep render pure + stable
+  const [now] = useState<number>(() => Date.now());
 
   useEffect(() => {
     try {
@@ -452,14 +454,14 @@ export default function ReportPage({
                   <div className="flex items-center justify-between py-3 border-t border-border/50">
                     <span className="text-sm text-text-secondary">Time to NSA Deadline</span>
                     <span className="font-mono font-semibold text-orange">
-                      {Math.max(0, Math.ceil((new Date("2027-12-31").getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 30)))} months
+                      {Math.max(0, Math.ceil((new Date("2027-12-31").getTime() - now) / (1000 * 60 * 60 * 24 * 30)))} months
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between py-3 border-t border-border/50">
                     <span className="text-sm text-text-secondary">Time to NIST Deadline</span>
                     <span className="font-mono font-semibold text-text-primary">
-                      {Math.max(0, Math.ceil((new Date("2030-12-31").getTime() - Date.now()) / (1000 * 60 * 60 * 24 * 30)))} months
+                      {Math.max(0, Math.ceil((new Date("2030-12-31").getTime() - now) / (1000 * 60 * 60 * 24 * 30)))} months
                     </span>
                   </div>
                 </div>

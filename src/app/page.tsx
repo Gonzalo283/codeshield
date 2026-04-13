@@ -3,6 +3,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
 import Providers from "./providers";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
@@ -45,9 +46,12 @@ function HomePage() {
             <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center">
               {/* Left */}
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-bg-surface/60 text-xs text-text-dim mb-8">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00E87B" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>
-                  Trusted by developers at startups &amp; enterprises
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green/20 bg-green/5 text-xs text-green mb-8">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green" />
+                  </span>
+                  Built for AI-generated code &middot; Now in public beta
                 </div>
 
                 <h1 className="text-5xl md:text-6xl lg:text-[64px] font-bold leading-[1.08] tracking-tight text-text-primary mb-7">
@@ -57,26 +61,31 @@ function HomePage() {
                 </h1>
 
                 <p className="text-base md:text-lg text-text-secondary leading-relaxed max-w-[520px] mb-10">
-                  The only security scanner built for AI-generated code. Detects OWASP
-                  vulnerabilities, leaked secrets, and quantum-unsafe cryptography — then
-                  fixes them automatically.
+                  A security scanner built for the code Copilot, Cursor and Claude
+                  generate. Finds OWASP vulnerabilities, leaked secrets, and
+                  quantum-unsafe cryptography &mdash; then fixes them for you.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={() => signIn("github")}
+                  <Link
+                    href="/scan-free"
                     className="btn-primary text-base px-8 py-3.5 hover:translate-y-[-2px] hover:shadow-lg hover:shadow-green/20 transition-all duration-200"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                    Scan Your First Repo
-                  </button>
-                  <a
-                    href="#demo"
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+                    Scan a repo in 30s
+                  </Link>
+                  <button
+                    onClick={() => signIn("github")}
                     className="btn-secondary text-base px-8 py-3.5 hover:translate-y-[-2px] transition-all duration-200"
                   >
-                    See how it works
-                  </a>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                    Connect GitHub
+                  </button>
                 </div>
+
+                <p className="text-xs text-text-dim mt-4">
+                  No signup for the first scan &middot; Free forever plan &middot; Your code stays private
+                </p>
               </div>
 
               {/* Right: terminal */}
@@ -106,9 +115,9 @@ function HomePage() {
           <section className="max-w-5xl mx-auto px-5 md:px-8 py-12">
             <div className="bg-bg-surface/50 border border-border rounded-2xl p-6 md:p-8 grid sm:grid-cols-3 gap-6 md:gap-0 md:divide-x divide-border">
               {[
-                { stat: "45%", label: "of AI-generated code has security vulnerabilities", source: "Omdia 2026" },
-                { stat: "51%", label: "of all GitHub code is now AI-generated", source: "GitHub 2026" },
-                { stat: "5%", label: "of enterprises have deployed quantum-safe encryption", source: "Entrust/Ponemon 2026" },
+                { stat: "45%", label: "of AI-generated code contains exploitable vulnerabilities", source: "Veracode State of Software Security 2025" },
+                { stat: "46%", label: "of developers' code is now written by AI assistants", source: "GitHub Octoverse 2024" },
+                { stat: "2030", label: "NIST deadline to deprecate RSA, ECDSA and classical crypto", source: "NIST IR 8547, 2025" },
               ].map((item) => (
                 <div key={item.stat} className="text-center md:px-8">
                   <div className="text-3xl md:text-4xl font-bold font-mono text-text-primary">{item.stat}</div>
@@ -140,7 +149,7 @@ function HomePage() {
                   </div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">More code, more risk</h3>
                   <p className="text-sm text-text-secondary leading-relaxed">
-                    AI tools generate code 10x faster. Security reviews haven&apos;t kept up. 81% of organizations lack visibility into AI-generated code in their SDLC.
+                    AI assistants write code orders of magnitude faster than humans can review. Security processes built for the old pace silently fall behind &mdash; and the gap is where exploits live.
                   </p>
                 </div>
 
@@ -160,7 +169,7 @@ function HomePage() {
                   </div>
                   <h3 className="text-lg font-semibold text-text-primary mb-2">Breaches cost millions</h3>
                   <p className="text-sm text-text-secondary leading-relaxed">
-                    The average data breach involving unauthorized AI tools costs $4.88M. Most are caused by vulnerabilities that automated scanning would catch.
+                    IBM&rsquo;s 2024 report puts the average data breach at $4.88M. Most are rooted in vulnerability classes that automated scanning catches &mdash; before the code ships.
                   </p>
                 </div>
               </div>
@@ -232,7 +241,7 @@ function HomePage() {
                     </div>
                     <h3 className="text-lg font-semibold text-text-primary mb-2">Post-Quantum Crypto Scanner</h3>
                     <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-                      Finds RSA, ECDSA, ECDH, DH, SHA-1, and 30+ quantum-vulnerable patterns. Generates a Cryptographic Bill of Materials. No other scanner does this.
+                      Flags RSA, ECDSA, ECDH, DH, SHA-1 and 30+ quantum-vulnerable patterns, and generates a Cryptographic Bill of Materials. Rare among scanners &mdash; most focus on conventional SAST.
                     </p>
                   </div>
                 </div>
@@ -402,21 +411,21 @@ function HomePage() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card p-8 border-l-2 border-l-green">
                   <blockquote className="text-text-secondary leading-relaxed mb-6">
-                    &ldquo;36% of AI-generated code contained security vulnerabilities, yet 92% of developers reported trusting AI-generated code as much or more than their own.&rdquo;
+                    &ldquo;Nearly half of all code changes scanned in our study contained a security flaw. AI code assistants produced insecure output in similar proportions to human developers &mdash; and far more volume.&rdquo;
                   </blockquote>
                   <div>
-                    <p className="text-sm font-semibold text-text-primary">ESG Research</p>
-                    <p className="text-xs text-text-dim">AI and Code Security Survey, 2026</p>
+                    <p className="text-sm font-semibold text-text-primary">Veracode</p>
+                    <p className="text-xs text-text-dim">State of Software Security Report, 2025</p>
                   </div>
                 </div>
 
                 <div className="card p-8 border-l-2 border-l-blue">
                   <blockquote className="text-text-secondary leading-relaxed mb-6">
-                    &ldquo;The average cost of a data breach reached $4.88M in 2025, with AI-related breaches costing 12% more than the global average.&rdquo;
+                    &ldquo;The global average cost of a data breach reached $4.88 million in 2024 &mdash; a 10% jump and the highest figure in the report&rsquo;s history.&rdquo;
                   </blockquote>
                   <div>
                     <p className="text-sm font-semibold text-text-primary">IBM Security</p>
-                    <p className="text-xs text-text-dim">Cost of a Data Breach Report, 2025</p>
+                    <p className="text-xs text-text-dim">Cost of a Data Breach Report, 2024</p>
                   </div>
                 </div>
               </div>
@@ -436,15 +445,24 @@ function HomePage() {
                     Start securing your AI code in 30 seconds
                   </h2>
                   <p className="text-text-secondary mb-10 max-w-md mx-auto">
-                    No credit card required. Free tier includes 5 repos and 10 scans/month.
+                    No credit card required. Free forever plan includes 5 repos and 10 scans / month.
                   </p>
-                  <button
-                    onClick={() => signIn("github")}
-                    className="btn-primary text-base px-8 py-4 hover:translate-y-[-2px] hover:shadow-lg hover:shadow-green/20 transition-all duration-200"
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                    Connect GitHub — Free
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Link
+                      href="/scan-free"
+                      className="btn-primary text-base px-8 py-4 hover:translate-y-[-2px] hover:shadow-lg hover:shadow-green/20 transition-all duration-200"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+                      Scan without signup
+                    </Link>
+                    <button
+                      onClick={() => signIn("github")}
+                      className="btn-secondary text-base px-8 py-4 hover:translate-y-[-2px] transition-all duration-200"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
+                      Connect GitHub
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
