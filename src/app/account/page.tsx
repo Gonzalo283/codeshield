@@ -2,16 +2,41 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { Nav } from "@/components/nav";
 import Providers from "../providers";
+
+interface AccountData {
+  subscription: {
+    planId: string;
+    status: string;
+    currentPeriodEnd: string;
+    cancelAtPeriodEnd: boolean;
+  } | null;
+  usage: {
+    scansThisMonth: number;
+    limit: number;
+    remaining: number;
+    reposScanned: number;
+    planId: string;
+  };
+}
 
 function AccountContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [portalLoading, setPortalLoading] = useState(false);
+  const [account, setAccount] = useState<AccountData | null>(null);
   const checkoutSuccess = searchParams.get("checkout") === "success";
+
+  useEffect(() => {
+    if (status !== "authenticated") return;
+    fetch("/api/account")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setAccount(d))
+      .catch(() => {});
+  }, [status]);
 
   if (status === "loading") {
     return (
@@ -43,6 +68,14 @@ function AccountContent() {
     }
   };
 
+  const planId = account?.subscription?.planId || "free";
+  const planLabel = planId.charAt(0).toUpperCase() + planId.slice(1);
+  const hasSub = !!account?.subscription;
+  const statusLabel = account?.subscription?.status || "free";
+  const periodEnd = account?.subscription?.currentPeriodEnd
+    ? new Date(account.subscription.currentPeriodEnd).toLocaleDateString()
+    : null;
+
   return (
     <div className="min-h-screen bg-bg-primary">
       <Nav variant="app" user={session?.user} onSignOut={() => signOut({ callbackUrl: "/" })} />
@@ -54,7 +87,7 @@ function AccountContent() {
               <polyline points="20 6 9 17 4 12"/>
             </svg>
             <span className="text-sm text-green font-medium">
-              Subscription activated successfully! Welcome to CodeShield Pro.
+              Subscription activated successfully! Welcome to CodeShield {planLabel}.
             </span>
           </div>
         )}
@@ -68,6 +101,7 @@ function AccountContent() {
           </h2>
           <div className="flex items-center gap-4">
             {session?.user?.image && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={session.user.image}
                 alt=""
@@ -92,17 +126,50 @@ function AccountContent() {
           </h2>
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-semibold text-text-primary">Free Plan</div>
-              <div className="text-sm text-text-secondary mt-1">
-                3 scans per month &middot; Basic detection
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-text-primary">{planLabel} Plan</span>
+                <span
+                  className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                    statusLabel === "active" || statusLabel === "trialing"
+                      ? "bg-green/10 text-green border-green/25"
+                      : statusLabel === "past_due"
+                        ? "bg-red/10 text-red border-red/25"
+                        : "bg-bg-elevated text-text-dim border-border"
+                  }`}
+                >
+                  {statusLabel.toUpperCase()}
+                </span>
               </div>
+              {account && (
+                <div className="text-sm text-text-secondary mt-1">
+                  {account.usage.limit === -1
+                    ? `Unlimited scans · ${account.usage.scansThisMonth} used this month`
+                    : `${account.usage.scansThisMonth} / ${account.usage.limit} scans this month`}
+                </div>
+              )}
+              {periodEnd && (
+                <div className="text-xs text-text-dim mt-1">
+                  {account?.subscription?.cancelAtPeriodEnd
+                    ? `Cancels on ${periodEnd}`
+                    : `Renews on ${periodEnd}`}
+                </div>
+              )}
             </div>
-            <a
-              href="/pricing"
-              className="px-4 py-2 bg-green/10 text-green border border-green/30 rounded-lg text-sm font-medium hover:bg-green/20 transition-colors"
-            >
-              Upgrade
-            </a>
+            {!hasSub ? (
+              <a
+                href="/pricing"
+                className="px-4 py-2 bg-green/10 text-green border border-green/30 rounded-lg text-sm font-medium hover:bg-green/20 transition-colors"
+              >
+                Upgrade
+              </a>
+            ) : (
+              <a
+                href="/pricing"
+                className="px-4 py-2 bg-bg-primary border border-border rounded-lg text-sm text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Change plan
+              </a>
+            )}
           </div>
         </div>
 
@@ -116,7 +183,7 @@ function AccountContent() {
           </p>
           <button
             onClick={handleManageBilling}
-            disabled={portalLoading}
+            disabled={portalLoading || !hasSub}
             className="px-4 py-2 bg-bg-primary border border-border rounded-lg text-sm text-text-secondary hover:text-text-primary hover:border-border-light transition-colors disabled:opacity-50"
           >
             {portalLoading ? (
@@ -124,8 +191,10 @@ function AccountContent() {
                 <span className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
                 Opening...
               </span>
-            ) : (
+            ) : hasSub ? (
               "Manage Billing"
+            ) : (
+              "No subscription yet"
             )}
           </button>
         </div>

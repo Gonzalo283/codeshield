@@ -18,6 +18,8 @@ import { NextRequest } from "next/server";
 import { scanFiles } from "@/lib/scanner";
 import { validateApiKey, incrementApiUsage } from "@/lib/api-keys";
 import { rateLimit, getClientIp, logRequest } from "@/lib/security";
+import { logUsage } from "@/lib/usage";
+import { log } from "@/lib/logger";
 import { RepoFile, Severity } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -67,6 +69,13 @@ export async function POST(request: NextRequest) {
     // Check plan usage
     const usage = await incrementApiUsage(apiKey);
     if (!usage.allowed) {
+      await logUsage({
+        userId: keyData.userId,
+        apiKeyId: keyData.id,
+        endpoint: "/api/v1/scan",
+        status: "quota_exceeded",
+        ip,
+      });
       return Response.json(
         {
           error: "quota_exceeded",
@@ -77,6 +86,8 @@ export async function POST(request: NextRequest) {
         { status: 429 }
       );
     }
+
+    const startTime = Date.now();
 
     const body = await request.json();
     const { code, language, repo } = body;
@@ -194,6 +205,20 @@ export async function POST(request: NextRequest) {
 
     logRequest(request, `api-v1-scan files=${files.length} vulns=${summary.total} plan=${keyData.plan}`);
 
+    // Audit log for billing + observability
+    const durationMs = Date.now() - startTime;
+    await logUsage({
+      userId: keyData.userId,
+      apiKeyId: keyData.id,
+      endpoint: "/api/v1/scan",
+      repoFullName: repo || null,
+      filesScanned: files.length,
+      vulnFound: summary.total,
+      durationMs,
+      status: "ok",
+      ip,
+    });
+
     // Response
     return Response.json({
       success: true,
@@ -214,6 +239,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
+    log.error("api-v1-scan error", error as Error);
     const message = error instanceof Error && error.name === "AbortError"
       ? "Request timed out"
       : "Internal error";

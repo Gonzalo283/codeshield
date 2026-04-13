@@ -36,6 +36,14 @@ const SCAN_PHASES = [
   "Finalizing report...",
 ];
 
+interface UsageInfo {
+  scansUsed: number;
+  scansLimit: number;
+  remaining: number;
+  reposScanned: number;
+  planId: string;
+}
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -43,6 +51,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
   const [debouncedFilter, setDebouncedFilter] = useState("");
+  const [usageInfo, setUsageInfo] = useState<UsageInfo | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const accessToken = session?.accessToken;
@@ -74,14 +83,24 @@ export default function DashboardPage() {
     }
   }, [accessToken]);
 
+  const fetchUsage = useCallback(async () => {
+    try {
+      const res = await fetch("/api/usage");
+      if (res.ok) setUsageInfo(await res.json());
+    } catch {
+      // ignore
+    }
+  }, []);
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
     }
     if (status === "authenticated") {
       fetchRepos();
+      fetchUsage();
     }
-  }, [status, router, fetchRepos]);
+  }, [status, router, fetchRepos, fetchUsage]);
 
   const handleScan = async (repo: RepoWithScan) => {
     // Start scan phase animation
@@ -131,6 +150,7 @@ export default function DashboardPage() {
             : r
         )
       );
+      fetchUsage();
     } catch {
       clearInterval(phaseInterval);
       setRepos((prev) =>
@@ -180,6 +200,40 @@ export default function DashboardPage() {
       <Nav variant="app" user={session?.user} onSignOut={() => signOut({ callbackUrl: "/" })} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* ── Plan & Usage Banner ── */}
+        {usageInfo && (
+          <div className="card p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-text-dim">Plan</span>
+                <span className="text-sm font-semibold text-text-primary capitalize">{usageInfo.planId}</span>
+              </div>
+              <div className="h-4 w-px bg-border" />
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-text-dim">Scans</span>
+                <span className="text-sm font-semibold text-text-primary">
+                  {usageInfo.scansLimit === -1
+                    ? `${usageInfo.scansUsed} / ∞`
+                    : `${usageInfo.scansUsed} / ${usageInfo.scansLimit}`}
+                </span>
+              </div>
+              {usageInfo.scansLimit !== -1 && (
+                <div className="hidden sm:block w-32 bg-bg-elevated rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className={`h-full transition-all ${usageInfo.scansUsed >= usageInfo.scansLimit ? "bg-red" : "bg-green"}`}
+                    style={{ width: `${Math.min(100, (usageInfo.scansUsed / usageInfo.scansLimit) * 100)}%` }}
+                  />
+                </div>
+              )}
+            </div>
+            {usageInfo.planId === "free" && (
+              <a href="/pricing" className="btn-primary text-xs px-3 py-1.5 whitespace-nowrap">
+                Upgrade to unlimited
+              </a>
+            )}
+          </div>
+        )}
+
         {/* ── Stats Header ── */}
         {hasScannedRepos && (
           <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">

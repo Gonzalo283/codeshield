@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getStripe, PLANS, PlanId } from "@/lib/stripe";
+import { db } from "@/lib/db";
+import { log } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,22 +30,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Reuse existing Stripe customer if already linked in DB
+    let customerId: string | undefined;
+    if (session.user.id) {
+      const user = await db.user.findUnique({
+        where: { id: session.user.id },
+        select: { stripeCustomerId: true },
+      });
+      customerId = user?.stripeCustomerId || undefined;
+    }
+
     const checkoutSession = await getStripe().checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
       line_items: [{ price: plan.priceId, quantity: 1 }],
-      customer_email: session.user.email,
+      ...(customerId
+        ? { customer: customerId }
+        : { customer_email: session.user.email }),
+      allow_promotion_codes: true,
       success_url: `${process.env.NEXTAUTH_URL}/account?checkout=success`,
       cancel_url: `${process.env.NEXTAUTH_URL}/pricing?checkout=cancelled`,
       metadata: {
         userId: session.user.id || "",
         planId,
       },
+      subscription_data: {
+        metadata: {
+          userId: session.user.id || "",
+          planId,
+        },
+      },
     });
 
+    log.info("stripe-checkout-created", { userId: session.user.id, planId });
     return Response.json({ url: checkoutSession.url });
   } catch (error) {
-    console.error("Stripe checkout error:", error);
+    log.error("Stripe checkout error", error as Error);
     return Response.json(
       { error: "Failed to create checkout session" },
       { status: 500 }

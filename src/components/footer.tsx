@@ -26,13 +26,21 @@ const columns = [
       { href: "mailto:enterprise@codeshield.sh", label: "Enterprise" },
     ],
   },
+  {
+    title: "Legal",
+    links: [
+      { href: "/terms", label: "Terms of Service" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/security", label: "Security" },
+    ],
+  },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-border mt-auto">
       <div className="max-w-7xl mx-auto px-5 md:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
