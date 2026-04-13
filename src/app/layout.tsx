@@ -5,11 +5,11 @@ import { GoogleAnalytics, PostHogAnalytics } from "@/components/analytics";
 
 export const metadata: Metadata = {
   title: {
-    default: "CodeShield.sh — Secure AI-Generated Code | Post-Quantum Ready",
-    template: "%s | CodeShield.sh",
+    default: "CodeShield — Security scanner built for AI-generated code",
+    template: "%s · CodeShield.sh",
   },
   description:
-    "The only security platform that makes AI-generated code quantum-safe. Scan GitHub repos for OWASP Top 10, secrets, and quantum-vulnerable crypto. Auto-fix with Claude AI.",
+    "A security scanner built for the code Copilot, Cursor and Claude generate. Finds OWASP vulnerabilities, leaked secrets, and quantum-unsafe cryptography — then fixes them with Claude.",
   keywords: [
     "AI code security scanner",
     "post-quantum cryptography migration",
@@ -33,24 +33,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "CodeShield.sh",
-    title: "CodeShield.sh — The only platform that makes AI code quantum-safe",
+    title: "CodeShield — Security scanner built for AI-generated code",
     description:
-      "45% of AI code has vulnerabilities. NIST deprecates RSA/ECDSA by 2030. Scan repos, detect quantum-vulnerable crypto, auto-fix with AI.",
+      "Independent audits show ~45% of AI-generated code contains a vulnerability. CodeShield finds them and generates the fix before you merge.",
     images: [
       {
-        url: "/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=45%25%20of%20AI%20code%20has%20vulnerabilities",
+        url: "/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=Built%20for%20AI-generated%20code",
         width: 1200,
         height: 630,
-        alt: "CodeShield — AI Code Security Scanner",
+        alt: "CodeShield — Security scanner built for AI-generated code",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CodeShield.sh — The only platform that makes AI code quantum-safe",
+    title: "CodeShield — Security scanner built for AI-generated code",
     description:
-      "45% of AI code has vulnerabilities. NIST deprecates RSA/ECDSA by 2030. Scan repos, detect quantum-vulnerable crypto, auto-fix with AI.",
-    images: ["/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=45%25%20of%20AI%20code%20has%20vulnerabilities"],
+      "Independent audits show ~45% of AI-generated code contains a vulnerability. CodeShield finds them and generates the fix before you merge.",
+    images: ["/api/og?title=Secure%20every%20line%20your%20AI%20writes.&stat=Built%20for%20AI-generated%20code"],
   },
   robots: {
     index: true,
